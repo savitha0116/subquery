@@ -1,0 +1,43 @@
+1.RANK(): Skips the next rank if there's a tie.
+Example: If two people are tied for 1st, the next rank is 3rd.
+ RANK(): B and C are tied at rank 2, so D is at rank 4 (skipping 3).
+
+2. DENSE_RANK(): Doesn't skip ranks. 
+Example: If two people are tied for 1st, the next rank is 2nd.
+DENSE_RANK(): B and C are tied at rank 2, so D is at rank 3 (no gap).
+
+
+
+EX:
+
+SHOW DATABASES;
+USE PRACTICES;
+SHOW TABLES;
+
+CREATE TABLE Scores (
+  Name VARCHAR(255),
+  Score INT
+);
+
+INSERT INTO Scores (Name, Score)
+VALUES
+  ('A', 100),
+  ('B', 90),
+  ('C', 90),
+  ('D', 80),
+  ('E', 70);
+
+SELECT 
+  Name,
+  Score,
+  RANK() OVER (ORDER BY Score DESC) AS Rank,
+  DENSE_RANK() OVER (ORDER BY Score DESC) AS DenseRank
+FROM Scores;
+
+
+NAME          SCORE              RANK       DENSERANK
+A              100                1            1
+B               90                2            2
+C               90                2            2
+D               70                4            3
+E               60                5            4           
