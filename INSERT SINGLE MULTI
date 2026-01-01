@@ -1,0 +1,24 @@
+SHOW DATABSES;
+USE PRACTICES;
+SHOW TABLES;
+CREATE TABLE Employees (
+  ID INT,
+  Name VARCHAR(255),
+  Salary DECIMAL(10, 2),
+  Department VARCHAR(255)
+);
+
+INSERT INTO Employees (ID, Name, Salary, Department)
+VALUES
+  (1, 'JOHN', 50000.00, 'Sales'),
+  (2, 'CM', 60000.00, 'Marketing'),
+  (3, 'YASH', 70000.00, 'IT'),
+  (4, 'SRINU', 80000.00, 'Sales'),
+  (5, 'SAI', 90000.00, 'IT');
+
+
+SELECT * FROM Employees
+WHERE Salary = (SELECT MAX(Salary) FROM Employees);
+
+SELECT * FROM Employees
+WHERE Department IN (SELECT Department FROM Employees GROUP BY Department HAVING COUNT(*) > 1);
